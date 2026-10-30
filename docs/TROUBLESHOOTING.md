@@ -1,6 +1,6 @@
 # Troubleshooting
 
-Things that bit us or contributors, so they don't bite you. Commands use `tools/tv.py`; see the
+Problems I have run into on real TVs (and fixes people sent in). Commands use `tools/tv.py`; see the
 [README](../README.md) quick start for setup.
 
 ## Connecting
@@ -48,7 +48,7 @@ Things that bit us or contributors, so they don't bite you. Commands use `tools/
   no way back from the shell on a set with no Wireless debugging, and switching USB debugging off
   stops `adbd` too, so plan one sitting rather than two: switch debugging off at the end, replug the
   adapter, and confirm Ethernet before handing the TV back. The launcher never needs debugging.
-- **Close port 5555 when you're done**: plaintext, and a shell for anyone on the LAN when `ro.adb.secure=0`. Steps in the README FAQ.
+- **Close port 5555 when you're done**: plaintext, and a shell for anyone on the LAN when `ro.adb.secure=0`. Turn USB and network debugging off and run `tools/adb-closed.py` (see the README quick start).
 - **The TV sits on a separate VLAN or IoT network** and `tools/tv.py` times out although debugging
   is on: the router keeps the computer from reaching it. Add a temporary firewall rule from your
   computer to the TV on tcp/5555 only, and remove it again when you close ADB. Opening the whole
@@ -598,7 +598,7 @@ tools/tv.py "pm enable com.google.android.tvrecommendations"
 
 Wait about 20 seconds before rebooting: Android writes package state to disk with a delay, and a reboot
 straight after `pm enable` can lose the change. `am force-stop com.nvidia.shield.remote.server` makes
-Android bind the provider at once, but only until the next boot. The SHIELD lists in upstream `examples/` keep
+Android bind the provider at once, but only until the next boot. Published SHIELD debloat lists keep
 `tvrecommendations` enabled for this reason.
 
 ## Fire TV (Fire OS): debloat works, the launcher cannot take Home

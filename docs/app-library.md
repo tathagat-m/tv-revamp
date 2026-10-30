@@ -1,5 +1,7 @@
 # App library
 
+The app library is an optional launcher feature: a pill after the last Home row that lists installed apps so you can add or remove shortcuts without leaving Home.
+
 ## Optional selection mode
 
 Set `"app_library_selection": true` along with `"app_library": true` in a theme,

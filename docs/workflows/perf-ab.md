@@ -1,9 +1,8 @@
 # Workflow: measure a launcher performance change, before and after
 
-**When to use this:** any change under `launcher/`. The regression check below is optional for most of them
-(about six minutes on one TV), but welcome. A change meant to make the launcher faster or lighter, or one
-whose check fails, then follows the full method
-#666 used, to show by how much and where the time went.
+**When to use this:** any change under `launcher/`. I run the regression check below for most launcher edits
+(about six minutes on one TV). When I am trying to make the launcher faster or lighter, or when a check fails,
+I follow the full trace method in this doc to see by how much and where the time went.
 
 ## The regression check, for any launcher change (optional)
 

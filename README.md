@@ -1,12 +1,12 @@
 # tv-revamp
 
-Debloat an **Android TV** or **Google TV** over Wi-Fi and replace the stock home screen with a small, clean launcher. Packages are **disabled**, not uninstalled, so you can restore everything in one step. No root and no cable.
+I built **tv-revamp** to take back the home screen on Android TV and Google TV: strip the sponsored rows and preloads I do not want, sideload a launcher I actually enjoy, and swap themes without rebuilding an APK. Everything goes over Wi-Fi from a laptop and a coding assistant. Packages are **disabled**, not uninstalled, so one restore script can bring the stock experience back. No root and no cable.
 
-This repo is a personal fork of the workflow and launcher from [CleanYourTV](https://github.com/Gathin23/cleanyourtv). Thank you to that project and its contributors for the tools, safety rules, and `com.gathin.tvhome` launcher.
+Along the way I added themes (including seasonal skins and rotating wallpaper collections), a privacy audit for installed apps, Perfetto tracing helpers, and a long troubleshooting guide from real TVs. The launcher stays small (under 480 KB), runs on 1 GB RAM sets, and never asks for network permission.
 
 ## Before and after
 
-One Android TV used while building this repo (your model and firmware will differ):
+Screens from my own TV while I was putting this together — your model and firmware will differ:
 
 | Before (stock Google TV home) | After (tv-revamp launcher) |
 |---|---|
@@ -16,11 +16,11 @@ One Android TV used while building this repo (your model and firmware will diffe
 
 | Step | What happens |
 |---|---|
-| **Back up** | Installed packages and settings are saved locally. |
-| **Disable** | Manufacturer telemetry, ad rows, and preloads you do not want are turned off with `pm disable-user --user 0`. |
+| **Back up** | Installed packages and settings are saved locally under `backup/`. |
+| **Disable** | Telemetry, ad surfaces, and bloat you do not need are turned off with `pm disable-user --user 0`. |
 | **Install** | The launcher APK is sideloaded and set as Home. |
 
-`tools/restore.sh` and `tools/disable.sh` follow the same safety rules as upstream: core Android packages, Live TV, HDMI inputs, Play Store, and the keyboard stay enabled unless you explicitly choose otherwise.
+`tools/disable.sh` and `tools/restore.sh` enforce guardrails I rely on: core Android packages, Live TV, HDMI inputs, Play Store, and the keyboard stay enabled unless you explicitly choose otherwise.
 
 ## Supported platforms
 
@@ -30,7 +30,7 @@ One Android TV used while building this repo (your model and firmware will diffe
 | **Fire TV** | Debloat only; Fire OS does not hand Home to a third-party launcher. |
 | **Samsung (Tizen), LG (webOS)** | Not Android; this repo does not apply. |
 
-Brand and model matter for *which* packages are safe to disable. Use an agent with [PROMPT.md](PROMPT.md) on your real TV, or adapt a list from the upstream [examples](https://github.com/Gathin23/cleanyourtv/tree/main/examples) for your firmware.
+Which packages are safe to disable depends on brand and firmware. I use [PROMPT.md](PROMPT.md) with an assistant on the actual TV so the list matches what is installed, not a generic template.
 
 ## Quick start
 
@@ -40,13 +40,15 @@ You need a computer on the same Wi-Fi as the TV (or [Tailscale](docs/REMOTE.md))
 2. On your computer: open [PROMPT.md](PROMPT.md), paste it into your assistant, and set your TV model.
 3. Accept the USB debugging prompt on the TV and answer the checklist (apps you use, dock, voice assistant, updates).
 
-With this repo as context, a first run is often about fifteen minutes. Screenshots from the TV verify each step (`tools/tv.py --screenshot`).
+With this repo as context, my first run on a new set is usually about fifteen minutes. I verify steps with TV screenshots (`tools/tv.py --screenshot`).
+
+When you are finished, turn USB and network debugging off and run `tools/adb-closed.py` so port 5555 is not left open on the LAN.
 
 ## What you get
 
-- A dark home screen with a dock of your favourite apps, a top shelf for the focused app, and a grid of everything else.
+- A dark home screen with a dock of favourite apps, a top shelf for the focused app, and a grid of everything else.
 - Inputs, network, and Settings in the top bar; optional themes via `tools/theme.sh` ([themes/README.md](themes/README.md)).
-- Module cards from separate apps ([docs/modules.md](docs/modules.md)) if you install add-ons from upstream or build your own.
+- Module cards from separate apps ([docs/modules.md](docs/modules.md)) if you sideload a module APK or build your own.
 
 ## Tools
 
@@ -74,24 +76,24 @@ See each file’s header comment for usage. Agents: [AGENTS.md](AGENTS.md).
 
 [`tools/privacy.py`](tools/privacy.py) groups packages by name and permission heuristics. What the audit cannot do is prove intent: a row in the report is a hint to read `dumpsys package`, not a verdict to disable blindly.
 
-## This repo’s TV session
+## My reference TV
 
-The maintainer’s own set is documented separately (not a requirement for your TV):
+I keep notes for one unit at home as an example — you do not need to match it:
 
-- [CHANGE.md](CHANGE.md) — packages disabled on that unit  
+- [CHANGE.md](CHANGE.md) — packages I disabled on that TV  
 - [UNDO.md](UNDO.md) and [undo.sh](undo.sh) — restore stock Home on that unit  
-- [TV-README.md](TV-README.md) — theme and day-to-day notes for that unit  
+- [TV-README.md](TV-README.md) — theme and day-to-day notes for that set  
 - [REDO-PROMPT.md](REDO-PROMPT.md) — repeat the same procedure on that unit  
 
 `backup/`, `shots/`, and `work/` are gitignored session data.
 
 ## The launcher
 
-Small native home screen for Android TV and Google TV: plain Java, no network permission, built for 1 GB RAM TVs.
+A native home screen for Android TV and Google TV: plain Java, no network permission, tuned for 1 GB RAM TVs.
 
 The **TV** needs Android 8.0 (API 26) or newer: `minSdk` is set in [`launcher/app/build.gradle`](launcher/app/build.gradle), and the install script reads `ro.build.version.sdk` before building so an older set fails fast instead of at `pm install` (see [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for what still works on such a set).
 
-Themes live in [`themes/`](themes/). Module cards are documented in [docs/modules.md](docs/modules.md). Optional add-ons from upstream CleanYourTV plug in as separate APKs.
+Themes live in [`themes/`](themes/). Module cards are documented in [docs/modules.md](docs/modules.md). Any Android TV app that declares the module contract can show up as a dock card after the owner approves it.
 
 <details>
 <summary><b>Launcher settings and the default home</b></summary>
@@ -121,7 +123,7 @@ Themes live in [`themes/`](themes/). Module cards are documented in [docs/module
 
 ## Docs
 
-- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — common ADB and launcher issues  
+- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — ADB and launcher issues I have hit on real sets  
 - [docs/REMOTE.md](docs/REMOTE.md) — work on a TV over Tailscale  
 - [docs/workflows/perf-ab.md](docs/workflows/perf-ab.md) — optional launcher performance checks  
 

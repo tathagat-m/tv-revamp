@@ -1,7 +1,7 @@
 # Switches on a TV
 
 Every key a theme can set (the Keys table in [`themes/README.md`](../themes/README.md)) gets a
-screenshot of what it does on a real TV. This table is where they are listed in tv-revamp.
+screenshot of what it does on a real TV. I keep those screenshots in this table.
 
 ## Adding a key
 

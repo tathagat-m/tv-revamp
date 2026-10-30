@@ -1,11 +1,9 @@
 # Contributing
 
-tv-revamp is a personal fork of the [CleanYourTV](https://github.com/Gathin23/cleanyourtv) workflow. Upstream welcomes TV lists, launcher changes, themes, and add-ons in its own repository.
+**tv-revamp** is my personal project for cleaning Android TV and Google TV sets and shipping a launcher I am happy to live with. I welcome fixes and improvements here.
 
-For this repo:
-
-- Open an issue or pull request on [tathagat-m/tv-revamp](https://github.com/tathagat-m/tv-revamp) for bugs in the tools or launcher as vendored here.
+- Open an issue or pull request on [tathagat-m/tv-revamp](https://github.com/tathagat-m/tv-revamp) for bugs in the tools, launcher, themes, or docs.
 - Do not commit `backup/`, `shots/`, `work/`, APKs, or device identifiers.
 - Agents working in the tree should read [`AGENTS.md`](AGENTS.md).
 
-Improvements that belong upstream (new TV lists, maintainer policy, community addons) are better sent to CleanYourTV directly.
+If you add a theme, include `screenshot.jpg` and a row in [themes/README.md](themes/README.md) as described there. New config keys need a row in the Keys table and a screenshot in [docs/switches.md](docs/switches.md).

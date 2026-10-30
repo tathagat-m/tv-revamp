@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for coding agents working in **tv-revamp**: a personal fork of the [CleanYourTV](https://github.com/Gathin23/cleanyourtv) workflow (launcher `com.gathin.tvhome`, tools under `tools/`). Start with [README.md](README.md).
+Instructions for coding agents working in **tv-revamp** — my Android TV / Google TV debloat and launcher project (`com.gathin.tvhome`, tools under `tools/`). Start with [README.md](README.md).
 
 ## First: which job?
 
@@ -11,7 +11,7 @@ Instructions for coding agents working in **tv-revamp**: a personal fork of the 
 
 ## Frozen session files
 
-These document one maintainer TV session. **Do not change** package lists, commands, or procedural steps inside them (only trivial typo fixes if the person asks):
+These document one TV session at my home. **Do not change** package lists, commands, or procedural steps inside them (only trivial typo fixes if the person asks):
 
 - [PROMPT.md](PROMPT.md), [undo.sh](undo.sh), [build-and-install.sh](build-and-install.sh)
 - [REDO-PROMPT.md](REDO-PROMPT.md), [CHANGE.md](CHANGE.md), [UNDO.md](UNDO.md), [TV-README.md](TV-README.md)
@@ -20,7 +20,7 @@ Do not treat Toshiba-specific text in those files as a project limitation: tv-re
 
 ## Safety rules (non-negotiable)
 
-Same as upstream CleanYourTV:
+These rules protect the TV; follow them on every session:
 
 - **Disable, never uninstall.** `pm disable-user --user 0`, one package per shell call.
 - **Back up first** into `backup/` before the first change.
@@ -39,11 +39,9 @@ Full detail is in [PROMPT.md](PROMPT.md).
 | `launcher/` | Reference launcher (`com.gathin.tvhome`), `minSdk` 26, no `INTERNET` |
 | `themes/` | Theme folders (`config.json`, wallpapers); see [themes/README.md](themes/README.md) |
 | `tools/` | `tv.py`, `disable.sh`, `restore.sh`, `theme.sh`, `recovery.py`, `check.py`, and helpers |
-| `docs/TROUBLESHOOTING.md` | Symptom → fix notes (some links point at upstream lists) |
+| `docs/TROUBLESHOOTING.md` | Symptom → fix notes from real TVs (some links point at community device write-ups) |
 | `docs/REMOTE.md` | Tailscale / remote ADB |
 | `backup/`, `shots/`, `work/` | Gitignored session data |
-
-Upstream TV lists and community add-ons live in the [CleanYourTV repository](https://github.com/Gathin23/cleanyourtv), not in this repo.
 
 ## Before you finish
 
@@ -55,9 +53,9 @@ Upstream TV lists and community add-ons live in the [CleanYourTV repository](htt
 
 CI runs the same unittest command on push to `main` (see [.github/workflows/ci.yml](.github/workflows/ci.yml)).
 
-## Hard rules for this fork
+## Hard rules for this repo
 
-- Do not push to the upstream CleanYourTV GitHub repository.
+- Work and pull requests belong on **tathagat-m/tv-revamp** only.
 - No prebuilt APKs in git.
 - No secrets or device identifiers in commits (IPs, Wi-Fi names, serials).
-- Do not relax launcher `minSdk` 26 or add `INTERNET` without an explicit fork decision.
+- Do not relax launcher `minSdk` 26 or add `INTERNET` without an explicit project decision.
