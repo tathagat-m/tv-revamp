@@ -1,8 +1,7 @@
 # Sky
 
 An optional backdrop that follows the clock: night blues until dawn, a soft blue day, then a warm
-horizon that peaks at seven in the evening. It is off in the built-in configuration, so a
-launcher built from this repository behaves exactly like before until a theme turns it on.
+horizon that peaks at seven in the evening. It stays off in the default build until a theme turns it on.
 
 ```json
 { "sky_intensity": 60 }

@@ -1,6 +1,6 @@
 # Module card, spec 1
 
-An installed Android TV app can declare a card for the launcher. A card is the app's tile with a
+An installed Android TV app can declare a card for the tv-revamp launcher. A card is the app's tile with a
 label of its choice, an optional caption and an optional glow colour, placed ahead of the
 alphabetical grid. The launcher shows a card only after the TV owner has answered Show on a prompt, and it
 remembers that answer for the app's signing key.

@@ -1,9 +1,9 @@
 # Helping someone in another home
 
-Everything in this repo assumes your computer and the TV are on the same Wi-Fi. When the TV is at a
-parent's or a friend's house, put a private [Tailscale](https://tailscale.com) link between your
-computer and their home. The TV then behaves exactly as if it were on your network: the prompt,
-`tools/tv.py`, screenshots and the launcher install all work unchanged, with a `100.x.y.z` address
+I wrote tv-revamp assuming your computer and the TV share a Wi-Fi network. When the TV is at a
+parent's or a friend's house, I use a private [Tailscale](https://tailscale.com) link between my
+computer and their home. The TV then behaves as if it were on my network: [PROMPT.md](../PROMPT.md),
+`tools/tv.py`, screenshots, and the launcher install all work unchanged, with a `100.x.y.z` address
 instead of the local one. Tailscale's personal plan is free.
 
 **Never forward port 5555 on their router to the internet.** ADB is full control of the TV, and
@@ -120,4 +120,4 @@ With option B, use the TV's local address instead of `100.x.y.z`.
 2. Remove the access: they revoke the share, or you remove the TV or the helper from your tailnet
    (or turn off its routes) in the admin console. Uninstall Tailscale from the TV unless they use it.
 
-Did this on a TV where something worked differently? Add a line here in a pull request.
+Hit something different on a remote session? I am happy to add a line here — send a pull request.

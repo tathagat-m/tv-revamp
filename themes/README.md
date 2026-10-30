@@ -1,6 +1,6 @@
 # Themes
 
-A theme is a folder with a `config.json` and, optionally, a `wallpaper.jpg`. Pushing one changes the
+I ship themes as folders with a `config.json` and, optionally, a `wallpaper.jpg`. Pushing one changes the
 launcher's dock, layout and look on the TV without rebuilding the APK: the launcher reads
 `config.json` as an overlay over its built-in `config.xml` the next time it starts.
 Choices made in Launcher settings take priority until you choose Follow theme. Pushing a theme or
@@ -39,7 +39,7 @@ A new key needs one there in the same pull request.
 | `fill_dock` | bool | Fill the dock slots `dock_apps` leaves free with the first grid apps (true by default); false leaves them empty |
 | `hidden_apps` | list of package names | Never shown as tiles |
 | `live_tv_package`, `live_tv_action` | string | The Live TV app and, if it has no leanback entry, the action to start it with |
-| `live_tv_input_id` | string | Exact system tuner for the Inputs menu's Live TV row; opens its channel collection. Empty keeps automatic selection. Missing input or unsupported collection falls back to the app's normal launch. [HAAM satellite example](https://github.com/Gathin23/cleanyourtv/blob/main/docs/devices/haam-r4.md) |
+| `live_tv_input_id` | string | Exact system tuner for the Inputs menu's Live TV row; opens its channel collection. Empty keeps automatic selection. Missing input or unsupported collection falls back to the app's normal launch. [HAAM satellite example](https://github.com/Gathin23/cleanyourtv/blob/main/docs/devices/haam-r4.md) (community device note) |
 | `source_panel_service`, `source_panel_action` | string | The TV's own source panel, for sets with no TvInputManager: a service, or an activity (BYINTEK U4). Without a Live TV app, the Inputs pill opens it directly |
 | `source_panel_extra` | `"name=value"` | One int extra sent with the source panel (Coocaa OS: `control_center_command=100`) |
 | `coocaa_sources` | bool | Coocaa OS (Skyworth, China): list the sources from `com.skyworth.tv` in the Inputs menu, ahead of the source panel |
@@ -48,7 +48,7 @@ A new key needs one there in the same pull request.
 | `app_banners` | list of `"package=banner_name"` | A tile's artwork from a `banner_*` drawable bundled with the launcher (`banner_tv`: magenta with the Live TV glyph) |
 | `input_action` | string | Action sent with an HDMI/AV row's channel URI when nothing handles the standard `VIEW` (XGIMI: `com.xgimi.action.hdmiPlayer`). Only a handler-less set gets here; any app that claims the channel MIME type takes the row instead, so check with `query-activities` ([#805](https://github.com/Gathin23/cleanyourtv/issues/805)) |
 | `input_uri_scheme` | string | Scheme an HDMI/AV row's passthrough URI is sent with instead of `content://`, with no MIME type (YaOS: `live-tv`, which its source player answers) |
-| `input_sources` | list, `config.xml` only | Vendor source numbers for the Inputs menu, `HW<n>=<number>` by the input id's last part; a mapped input opens by sending `input_action` with the number as the int extra `input`, and `HW<n>=-` leaves a port the set doesn't have out of the menu. Xiaomi/Redmi China firmware: see upstream [redmi-mitv-mftp0](https://github.com/Gathin23/cleanyourtv/tree/main/examples/redmi-mitv-mftp0). Not read from a theme |
+| `input_sources` | list, `config.xml` only | Vendor source numbers for the Inputs menu, `HW<n>=<number>` by the input id's last part; a mapped input opens by sending `input_action` with the number as the int extra `input`, and `HW<n>=-` leaves a port the set doesn't have out of the menu. Xiaomi/Redmi China firmware: see [redmi-mitv-mftp0 example list](https://github.com/Gathin23/cleanyourtv/tree/main/examples/redmi-mitv-mftp0). Not read from a theme |
 | `columns` | 1 to 8 | Tiles per row; tiles shrink to fit from 5 up |
 | `rows_below_dock` | 0 to 3 | Grid rows left visible under the dock; tiles shrink if the dock, its title and that many rows would not fit the screen height |
 | `dock_title` | bool | The focused dock app's name in large type above the dock (`true`); `false` keeps only the glow |
@@ -172,7 +172,7 @@ clock: night blues, a soft blue day, then a warm horizon that peaks at seven in 
 The glow near the bottom edge travels from left to right with the sun. The colours stay dark so the
 white clock, the hero name and the dock band keep their contrast. It is drawn as one 480×270 bitmap
 and redrawn once a minute, never animated, so even a 1 GB TV has nothing to keep up with. `0` keeps
-the plain background; the default is off (the reference launcher looks exactly as before).
+the plain background; the default is off.
 
 ```json
 { "sky_intensity": 60 }
@@ -185,7 +185,7 @@ launcher follows the real sun only when `latitude` and `longitude` are set in
 
 ## Adding a theme
 
-Open a PR with a new folder here containing:
+When you open a PR with a new folder here, include:
 
 - `config.json`, the theme itself.
 - `screenshot.jpg`, **required**: Home on a real TV with the theme pushed, not a mock-up or an

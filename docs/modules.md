@@ -1,6 +1,6 @@
 # Making a module
 
-A module is a normal Android TV app that declares a card for this launcher. Your repo, your
+A module is a normal Android TV app that declares a card for the tv-revamp launcher. Your repo, your
 licence, your signing key, released as an APK wherever you like, for example on your GitHub
 Releases page with its SHA-256. The TV owner sideloads it like any other app. The launcher finds the
 card and asks the owner once; if they answer Show, your app appears as a card from then on: your
